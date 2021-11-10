@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 # license: GPLv3
 
 class space_objects():
@@ -27,10 +27,10 @@ class space_objects():
         self.Vy = float(Vy)
         """Скорость по оси **y**"""
 
-        self.Fx = int(0)
+        self.Fx = float(0)
         """Сила по оси **x**"""
 
-        self.Fy = int(0)
+        self.Fy = float(0)
         """Сила по оси **y**"""
 
         self.R = float(R)

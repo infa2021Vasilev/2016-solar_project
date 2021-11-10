@@ -1,5 +1,4 @@
-# coding: utf-8
-# license: GPLv3
+﻿# coding: utf-8
 
 import pygame as pg
 
@@ -43,7 +42,7 @@ def scale_x(x):
     **x** — x-координата модели.
     """
     global scale_factor, window_width
-    return int(x*scale_factor) + window_width//2
+    return (x*scale_factor) + window_width//2
 
 
 def scale_y(y):
@@ -58,7 +57,7 @@ def scale_y(y):
     **y** — y-координата модели.
     """
     global scale_factor, window_height
-    return int(y*scale_factor) + window_height//2
+    return (y*scale_factor) + window_height//2
 
 
 

@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 # license: GPLv3
 
 import pygame as pg
@@ -74,7 +74,7 @@ def open_file():
     global model_time
 
     model_time = 0.0
-    in_filename = "double_star.txt"
+    in_filename = "solar_system.txt"
     space_objects = read_space_objects_data_from_file(os.path.join(sys.path[0],in_filename))
     max_distance = max([max(abs(obj.obj.x), abs(obj.obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
@@ -92,6 +92,11 @@ def slider_to_real(val):
 def slider_reaction(event):
     global time_scale
     time_scale = slider_to_real(event.el.get_value())
+def pohuy():
+    objs = list()
+    for i in range(len(space_objects)):
+        objs.append(space_objects[i].obj)
+    write_space_objects_data_to_file(objs)
 
 def init_ui(screen):
     global browser
@@ -100,6 +105,7 @@ def init_ui(screen):
     button_stop = thorpy.make_button("Quit", func=stop_execution)
     button_pause = thorpy.make_button("Pause", func=pause_execution)
     button_play = thorpy.make_button("Play", func=start_execution)
+    button_save = thorpy.make_button("Save", func=pohuy)
     timer = thorpy.OneLineText("Seconds passed")
 
     button_load = thorpy.make_button(text="Load a file", func=open_file)
@@ -110,6 +116,7 @@ def init_ui(screen):
         button_stop, 
         button_play, 
         button_load,
+        button_save,
         timer])
     reaction1 = thorpy.Reaction(reacts_to=thorpy.constants.THORPY_EVENT,
                                 reac_func=slider_reaction,
