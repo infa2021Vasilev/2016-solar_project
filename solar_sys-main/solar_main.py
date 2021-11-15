@@ -1,4 +1,4 @@
-﻿# coding: utf-8
+# coding: utf-8
 # license: GPLv3
 
 import pygame as pg
@@ -92,11 +92,16 @@ def slider_to_real(val):
 def slider_reaction(event):
     global time_scale
     time_scale = slider_to_real(event.el.get_value())
-def pohuy():
+def save_data_by_click():
     objs = list()
     for i in range(len(space_objects)):
         objs.append(space_objects[i].obj)
-    write_space_objects_data_to_file(objs)
+    write_space_objects_data_to_file(objs, 'output.txt')
+def save_statictics():
+    objs = list()
+    for i in range(len(space_objects)):
+        objs.append(space_objects[i].obj)
+    write_space_objects_data_to_file(objs, 'stat.txt')
 
 def init_ui(screen):
     global browser
@@ -105,7 +110,7 @@ def init_ui(screen):
     button_stop = thorpy.make_button("Quit", func=stop_execution)
     button_pause = thorpy.make_button("Pause", func=pause_execution)
     button_play = thorpy.make_button("Play", func=start_execution)
-    button_save = thorpy.make_button("Save", func=pohuy)
+    button_save = thorpy.make_button("Save", func=save_data_by_click)
     timer = thorpy.OneLineText("Seconds passed")
 
     button_load = thorpy.make_button(text="Load a file", func=open_file)
@@ -160,10 +165,14 @@ def main():
     drawer = Drawer(screen)
     menu, box, timer = init_ui(screen)
     perform_execution = True
+    tic = 0
 
     while alive:
         handle_events(pg.event.get(), menu)
         cur_time = time.perf_counter()
+        if int(model_time) / 10000000 > tic:    #Раз в 10000000 секунд сохраняет данные в файл stat.txt
+            save_statictics()
+            tic += 1
         if perform_execution:
             space_objects = execution((cur_time - last_time) * time_scale)
             text = "%d seconds passed" % (int(model_time))
